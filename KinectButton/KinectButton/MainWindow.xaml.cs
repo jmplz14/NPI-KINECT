@@ -37,7 +37,7 @@ namespace KinectButton
         float handX;
         float handY;
         String imagenMano;
-        bool cuadroSeleccionado;
+        bool cuadroSeleccionado = false;
         private UserInfo[] userInfos;
 
         public class DummyInteractionClient : IInteractionClient
