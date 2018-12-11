@@ -18,6 +18,7 @@ using Microsoft.Kinect.Toolkit.Interaction;
 using Microsoft.Kinect.Toolkit.Controls;
 using System.ComponentModel;
 using System.Windows.Media.Media3D;
+using System.Collections.ObjectModel;
 
 namespace KinectAntonio
 {
@@ -39,7 +40,7 @@ namespace KinectAntonio
         {
             InitializeComponent();
             //añadimos todas los botones con imagenes
-            buttons = new List<KinectTileButton> { imageButton1 };
+            buttons = new List<KinectTileButton> { imageButton1,imageButton2 };
 
             Loaded += OnLoaded;
             // initialize control modes
@@ -181,7 +182,8 @@ namespace KinectAntonio
         public Point3D oldDepth;
         public Point3D newDepth;
         bool stopDraw;
-
+        double primeraDistancia = 0;
+        double distancia = 0;
         private void InteractionStreamOnInteractionFrameReady(object sender, InteractionFrameReadyEventArgs e)
         {
             TrackClosestSkeleton();
@@ -200,7 +202,7 @@ namespace KinectAntonio
             if (controlManager.isDrawActive(_userInfos, _skeletons))
             {
                 newPoint = controlManager.getCursorLocation(kinectRegion);
-
+                
                 if (oldDepth == null || stopDraw == true)
                 {
                     oldDepth = newDepth;
@@ -210,33 +212,74 @@ namespace KinectAntonio
                 {
                     oldPoint = newPoint;
                 }
-
+                
                 newDepth = controlManager.getHandLocation();
+                
                 if (isHandOver(oldPoint, buttons))
                 {
                     stopDraw = false;
+                    primeraDistancia = getDistancia();
                 }
 
                 if (!stopDraw)
                 {
                     Thickness thickness = new Thickness();
-                    thickness.Top = newPoint.Y;
-                    thickness.Left = newPoint.X;
+                    thickness.Top = newPoint.Y-20;
+                    thickness.Left = newPoint.X-20;
                     selected.Margin = thickness;
+                    distancia = getDistancia();
+                    selected.Width += (primeraDistancia - distancia)*1.5;
+                    selected.Height += (primeraDistancia - distancia)*1.5;
                 }
                 /* Como dibuja
                 DrawCanvas.Paint(oldPoint, newPoint, inkCanvas, color, thickness, tool, oldDepth, newDepth);
                 oldPoint = newPoint;
                 oldDepth = newDepth;
                 */
+
+
                 kinectRegion.Tag = "draw";
             }
             else
             {
                 kinectRegion.Tag = "";
                 stopDraw = true;
+                primeraDistancia = 0;
+                distancia = 0;
             }
         }
+
+         public  double getDistancia()
+        {
+            double x1 = 0;
+            double y1 = 0;
+            double x2 = 0;
+            double y2 = 0;
+            foreach(var user in _userInfos)
+            {
+                int userID = user.SkeletonTrackingId;
+                if (userID == 0)
+                {
+                    continue;
+                }
+                foreach (var hand in user.HandPointers)
+                {
+                    if (hand.IsPrimaryForUser && hand.HandEventType == InteractionHandEventType.Grip)
+                    {
+                        x1 = hand.RawX;
+                        y1 = hand.RawY;
+                    }
+                    else { 
+                        x2 = hand.RawX;
+                        y2 = hand.RawY;
+                    }
+
+                }
+            }
+            
+            return Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+        }
+
         private void TrackClosestSkeleton()
         {
             if (this._sensor != null && this._sensor.SkeletonStream != null)

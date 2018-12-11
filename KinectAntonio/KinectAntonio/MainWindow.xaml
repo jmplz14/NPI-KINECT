@@ -11,11 +11,18 @@
         <k:KinectSensorChooserUI Name="sensorChooserUi" HorizontalAlignment="Center" VerticalAlignment="Top"></k:KinectSensorChooserUI>
         <k:KinectRegion Name="kinectRegion">
             <!---Botton imagen cuadro -->
-            <k:KinectTileButton x:Name="imageButton1" Content="" Margin="569,144,0,0" Width="100" Height="100" Panel.ZIndex="10"  BorderBrush="#00000000" Foreground="#00000000" VerticalAlignment="Top" HorizontalAlignment="Left">
-                <k:KinectTileButton.Background>
-                    <ImageBrush ImageSource="/Images/1.png" Stretch="Uniform"/>
-                </k:KinectTileButton.Background>
-            </k:KinectTileButton>
+            <Canvas>
+                <k:KinectTileButton x:Name="imageButton1" Content="" Margin="569,144,0,0" Width="100" Height="100" Panel.ZIndex="10"  BorderBrush="#00000000" Foreground="#00000000" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <k:KinectTileButton.Background>
+                        <ImageBrush ImageSource="/Images/1.png" Stretch="Uniform"/>
+                    </k:KinectTileButton.Background>
+                </k:KinectTileButton>
+                <k:KinectTileButton x:Name="imageButton2" Content=""  Margin="569,10,0,0" Width="100" Height="100" Panel.ZIndex="10"  BorderBrush="#00000000" Foreground="#00000000" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <k:KinectTileButton.Background>
+                        <ImageBrush ImageSource="/Images/1.png" Stretch="Uniform"/>
+                    </k:KinectTileButton.Background>
+                </k:KinectTileButton>
+            </Canvas>
         </k:KinectRegion>
 
     </Grid>

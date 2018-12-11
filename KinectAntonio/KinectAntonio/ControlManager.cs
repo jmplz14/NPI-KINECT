@@ -109,6 +109,7 @@ namespace KinectAntonio
             return modesList.ElementAt(currentModeId).getHandLocation();
         }
 
+
         public double calculateSpeed(Dictionary<Point3D, DateTime> lastLocationData, Dictionary<Point3D, DateTime> currentLocationData)
         {
             var currentPoint = currentLocationData.ElementAt(0).Key;

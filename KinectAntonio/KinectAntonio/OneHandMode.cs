@@ -59,6 +59,7 @@ namespace KinectAntonio
             }
         }
 
+        
         public override Point getCursorLocation(KinectRegion region) 
         {
             var x = region.ActualWidth * primaryHand.X;

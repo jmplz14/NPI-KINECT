@@ -38,6 +38,8 @@ namespace KinectAntonio
             return false;
         }
 
+
+
         public virtual Point getCursorLocation(KinectRegion region)
         {
             return new Point();
