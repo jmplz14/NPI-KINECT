@@ -19,6 +19,7 @@ using Microsoft.Kinect.Toolkit.Controls;
 using System.ComponentModel;
 using System.Windows.Media.Media3D;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace KinectAntonio
 {
@@ -35,7 +36,10 @@ namespace KinectAntonio
         private ControlManager controlManager = new ControlManager();
         List<KinectTileButton> buttons;
         KinectTileButton selected;
-        string salaActual = "1";
+        //Marca la sala actual.
+        string salaActual = "1.0";
+        int paginaActualSala = 0;
+        int[] maxPaginas = { 2 , 1 , 0};
 
         public MainWindow()
         {
@@ -44,7 +48,11 @@ namespace KinectAntonio
             buttons = new List<KinectTileButton> { imageButton1,imageButton2,imageButton3, imageButton4,
                 imageButton5,imageButton6,imageButton7,imageButton8,imageButton9,imageButton10,
                 imageButton11,imageButton12,imageButton13,imageButton14,imageButton15,imageButton16,
-                imageButton17,imageButton18,imageButton19,imageButton20,imageButton21
+                imageButton17,imageButton18,imageButton19,imageButton20,imageButton21,
+                imageButton22,imageButton23,imageButton24,imageButton25,imageButton26,
+                imageButton27,imageButton28,imageButton29,imageButton30,imageButton31,
+                imageButton32,imageButton33,imageButton34,imageButton35,imageButton36,
+                imageButton37
             };
 
             Loaded += OnLoaded;
@@ -53,13 +61,16 @@ namespace KinectAntonio
             controlManager.addControlMode(new TwoHandMode(controlManager)); // id 1
         }
 
-        private void CambiarSala(string sala)
+        private void CambiarSala(string sala, int pagina)
         {
-            if(sala != salaActual)
+            String salaBuscada = sala;
+            salaBuscada += ".";
+            salaBuscada += pagina.ToString();
+            if(salaBuscada != salaActual)
             {
                 foreach (KinectTileButton target in buttons)
                 {
-                    if(target.Uid == sala)
+                    if(target.Uid == salaBuscada)
                     {
                         target.Visibility = Visibility.Visible;
                     }
@@ -68,8 +79,32 @@ namespace KinectAntonio
                         target.Visibility = Visibility.Hidden;
                     }
                 }
+                salaActual = salaBuscada;
+                paginaActualSala = pagina;
             }
-            salaActual = sala;
+            
+        }
+
+        //Se le pasa -1 para disminuir una pagina y +1 para aumentar una pagina
+        private void CambiarPagina(int numPaginasPasadas)
+        {
+            int siguientePagina = paginaActualSala + numPaginasPasadas;
+            if(siguientePagina >= 0)
+            {
+                string sala = StringInfo.GetNextTextElement(salaActual, 0);
+                if (sala == "1" && siguientePagina <= maxPaginas[0] )
+                {
+                    CambiarSala("1",siguientePagina);
+                }
+                if (sala == "2" && siguientePagina <= maxPaginas[1])
+                {
+                    CambiarSala("2", siguientePagina);
+                }
+                if (sala == "3" && siguientePagina <= maxPaginas[2])
+                {
+                    CambiarSala("3", siguientePagina);
+                }
+            }
         }
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
@@ -359,21 +394,36 @@ namespace KinectAntonio
 
         private void Sala1Click(object sender, RoutedEventArgs e)
         {
-            CambiarSala("1");
+            CambiarSala("1",0);
         }
 
         private void Sala2Click(object sender, RoutedEventArgs e)
         {
-            CambiarSala("2");
+            CambiarSala("2",0);
         }
         private void Sala3Click(object sender, RoutedEventArgs e)
         {
-            CambiarSala("3");
+            CambiarSala("3",0);
         }
 
         private void ImageButton50_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ReordenarCanvas(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PaginaAnterior(object sender, RoutedEventArgs e)
+        {
+            CambiarPagina(-1);
+        }
+
+        private void PaginaSiguiente(object sender, RoutedEventArgs e)
+        {
+            CambiarPagina(1);
         }
     }
 
