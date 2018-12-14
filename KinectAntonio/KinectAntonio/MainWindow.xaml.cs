@@ -35,12 +35,17 @@ namespace KinectAntonio
         private ControlManager controlManager = new ControlManager();
         List<KinectTileButton> buttons;
         KinectTileButton selected;
+        string salaActual = "1";
 
         public MainWindow()
         {
             InitializeComponent();
             //añadimos todas los botones con imagenes
-            buttons = new List<KinectTileButton> { imageButton1,imageButton2 };
+            buttons = new List<KinectTileButton> { imageButton1,imageButton2,imageButton3, imageButton4,
+                imageButton5,imageButton6,imageButton7,imageButton8,imageButton9,imageButton10,
+                imageButton11,imageButton12,imageButton13,imageButton14,imageButton15,imageButton16,
+                imageButton17,imageButton18,imageButton19,imageButton20,imageButton21
+            };
 
             Loaded += OnLoaded;
             // initialize control modes
@@ -48,7 +53,24 @@ namespace KinectAntonio
             controlManager.addControlMode(new TwoHandMode(controlManager)); // id 1
         }
 
-
+        private void CambiarSala(string sala)
+        {
+            if(sala != salaActual)
+            {
+                foreach (KinectTileButton target in buttons)
+                {
+                    if(target.Uid == sala)
+                    {
+                        target.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        target.Visibility = Visibility.Hidden;
+                    }
+                }
+            }
+            salaActual = sala;
+        }
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             var desktopWorkingArea = System.Windows.SystemParameters.WorkArea;
@@ -328,6 +350,30 @@ namespace KinectAntonio
                 }
             }
             return false;
+        }
+
+        private void UiButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Sala1Click(object sender, RoutedEventArgs e)
+        {
+            CambiarSala("1");
+        }
+
+        private void Sala2Click(object sender, RoutedEventArgs e)
+        {
+            CambiarSala("2");
+        }
+        private void Sala3Click(object sender, RoutedEventArgs e)
+        {
+            CambiarSala("3");
+        }
+
+        private void ImageButton50_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 
