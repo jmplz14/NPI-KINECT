@@ -280,13 +280,13 @@ namespace KinectAntonio
 
                 if (!stopDraw)
                 {
-                    Thickness thickness = new Thickness();
-                    thickness.Top = newPoint.Y-20;
-                    thickness.Left = newPoint.X-20;
-                    selected.Margin = thickness;
+
+                    Canvas.SetLeft(selected, newPoint.X-selected.Width/2);
+                    Canvas.SetTop(selected, newPoint.Y-selected.Height/2);
                     distancia = getDistancia();
                     selected.Width += (primeraDistancia - distancia)*1.5;
                     selected.Height += (primeraDistancia - distancia)*1.5;
+                        
                 }
                 /* Como dibuja
                 DrawCanvas.Paint(oldPoint, newPoint, inkCanvas, color, thickness, tool, oldDepth, newDepth);
@@ -372,13 +372,14 @@ namespace KinectAntonio
             var handY = punto.Y;
 
 
-
             foreach (KinectTileButton target in buttonslist)
             {
-                if (handX > target.Margin.Left &&
-                    handX < target.Margin.Left + target.Width &&
-                    handY > target.Margin.Top &&
-                    handY < target.Margin.Top + target.Height)
+                System.Windows.Point targetTopLeft = new System.Windows.Point(Canvas.GetLeft(target), Canvas.GetTop(target));
+            
+                if (handX > targetTopLeft.X &&
+                    handX < targetTopLeft.X + target.Width &&
+                    handY > targetTopLeft.Y &&
+                    handY < targetTopLeft.Y + target.Height && target.IsVisible)
                 {
                     selected = target;
                     return true;
