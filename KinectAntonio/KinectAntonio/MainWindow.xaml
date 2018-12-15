@@ -14,7 +14,7 @@
 
             <Canvas Name="canvasKinect">
 
-                <k:KinectTileButton x:Name="borrar" Content="Borrar"  Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="188" Height="155" Panel.ZIndex="10" BorderBrush="Black" Foreground="Black" LabelBackground="Black" Click="UiButtonClick" Canvas.Left="10" Canvas.Top="8"/>
+                <k:KinectTileButton x:Name="borrar" Content="Borrar"  Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="188" Height="155" Panel.ZIndex="10" BorderBrush="Black" Foreground="Black" LabelBackground="Black" Click="LimpiarCanvas" Canvas.Left="10" Canvas.Top="8"/>
                 <k:KinectTileButton x:Name="sala1" Content="Sala 1"  Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="188" Height="149" Panel.ZIndex="10" BorderBrush="Black" Foreground="Black" LabelBackground="Black" Click="Sala1Click" Canvas.Left="10" Canvas.Top="163"/>
                 <k:KinectTileButton x:Name="sala2" Content="Sala 2"  Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="188" Height="149" Panel.ZIndex="10" BorderBrush="Black" Foreground="Black" LabelBackground="Black" Click="Sala2Click" Canvas.Left="10" Canvas.Top="311"/>
                 <k:KinectTileButton x:Name="sala3" Content="Sala 3"  Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="188" Height="152" Panel.ZIndex="10" BorderBrush="Black" Foreground="Black" LabelBackground="Black" Click="Sala3Click" Canvas.Left="10" Canvas.Top="460"/>

@@ -453,6 +453,29 @@ namespace KinectAntonio
         {
             CambiarPagina(1);
         }
+
+        private void LimpiarCanvas(object sender, RoutedEventArgs e)
+        {
+            List<KinectTileButton> borrados = new List<KinectTileButton>();
+            foreach (KinectTileButton target in buttons)
+            {
+             
+
+                if (target.Uid == "elegido")
+                {
+                    borrados.Add(target);
+                    this.canvasKinect.Children.Remove(target);
+
+
+
+                }
+            }
+
+            foreach (KinectTileButton target in borrados)
+            {
+                buttons.Remove(target);
+            }
+        }
     }
 
 }
