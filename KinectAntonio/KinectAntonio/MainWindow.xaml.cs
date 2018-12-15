@@ -321,6 +321,29 @@ namespace KinectAntonio
             else
             {
                 kinectRegion.Tag = "";
+                if(selected != null)
+                {
+                    double margenIzquierdo = Canvas.GetLeft(selected);
+                    double margenSuperior = Canvas.GetTop(selected);
+
+                    if (margenSuperior < 0)
+                    {
+                        Canvas.SetTop(selected, 0);
+                    }
+                    if (margenSuperior > 800 - selected.Height)
+                    {
+                        Canvas.SetTop(selected, 800-selected.Height);
+                    }
+                    if (margenIzquierdo < 198)
+                    {
+                        Canvas.SetLeft(selected, 198);
+                    }
+                    if (margenIzquierdo > 1190-selected.Width)
+                    {
+                        Canvas.SetLeft(selected, 1190-selected.Width);
+                    }
+                }
+                selected = null;
                 stopDraw = true;
                 primeraProfundidad = 0;
                 profundidad = 0;
