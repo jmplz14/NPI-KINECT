@@ -59,6 +59,9 @@ namespace KinectAntonio
             // initialize control modes
             controlManager.addControlMode(new OneHandMode(controlManager)); // id 0
             controlManager.addControlMode(new TwoHandMode(controlManager)); // id 1
+
+
+
         }
 
         private void CambiarSala(string sala, int pagina)
@@ -116,7 +119,6 @@ namespace KinectAntonio
 
             this.sensorChooser = new KinectSensorChooser();
             this.sensorChooser.KinectChanged += SensorChooserOnKinectChanged;
-            //this.sensorChooserUi.KinectSensorChooser = this.sensorChooser;
             this.sensorChooser.Start();
 
         }
@@ -125,6 +127,8 @@ namespace KinectAntonio
         // Event handler Kinect controller change. Handles Sensor configs on start and stop.
         private void SensorChooserOnKinectChanged(object sender, KinectChangedEventArgs args)
         {
+
+
             bool error = false;
             if (args.OldSensor != null)
             {
@@ -271,30 +275,48 @@ namespace KinectAntonio
                 }
                 
                 newDepth = controlManager.getHandLocation();
-                
-                if (isHandOver(oldPoint, buttons))
-                {
-                    stopDraw = false;
-                    if(profundidad == 0)
-                        primeraProfundidad = getprofundidad();
-                    etiqueta.Content = primeraProfundidad.ToString();
-                }
 
-                if (!stopDraw)
+                if(stopDraw)
+                    if (isHandOver(oldPoint, buttons))
+                    {
+                        stopDraw = false;
+                        primeraProfundidad = getprofundidad();
+                        etiqueta.Content = primeraProfundidad.ToString();
+
+                        if(selected.Uid != "elegido")
+                        {
+                            stopDraw = true;
+
+                            var nuevo = ClonarBoton(selected);
+                            Canvas.SetLeft(nuevo, newPoint.X - selected.Width / 2);
+                            Canvas.SetTop(nuevo, newPoint.Y - selected.Height / 2);
+
+                            this.canvasKinect.Children.Add(nuevo);
+                            selected = nuevo;
+                            buttons.Insert(0, nuevo);
+
+                        }
+
+                    }
+       
+
+
+                if (!stopDraw && selected.Uid == "elegido")
                 {
                     Canvas.SetLeft(selected, newPoint.X-selected.Width/2);
                     Canvas.SetTop(selected, newPoint.Y-selected.Height/2);
                     profundidad = getprofundidad();
                     etiqueta2.Content = profundidad.ToString();
+                    double widthNuevo = selected.Width - (primeraProfundidad - profundidad) * 1.5;
+                    double heightNuevo = selected.Height - (primeraProfundidad - profundidad) * 1.5;
 
-                    selected.Width -= (primeraProfundidad - profundidad)*1.5;
-                    selected.Height -= (primeraProfundidad - profundidad)*1.5;
-                        
+                    if (widthNuevo > 0 && heightNuevo > 0)
+                    {
+                        selected.Width = widthNuevo;
+                        selected.Height = heightNuevo;
+                    }
+
                 }
-
-
-
-                kinectRegion.Tag = "draw";
             }
             else
             {
@@ -328,6 +350,18 @@ namespace KinectAntonio
             }
             
             return z;
+        }
+
+        private KinectTileButton ClonarBoton(KinectTileButton original)
+        {
+            KinectTileButton nuevo = new KinectTileButton();
+            Brush imagen = original.Background;
+            nuevo.Background = imagen;
+            nuevo.Width = selected.Width;
+            nuevo.Height = selected.Height;
+            nuevo.Uid = "elegido";
+            return nuevo;
+
         }
 
         private void TrackClosestSkeleton()

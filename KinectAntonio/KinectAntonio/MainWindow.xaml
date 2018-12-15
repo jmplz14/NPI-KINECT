@@ -9,11 +9,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1520">
     <Grid>
-        <k:KinectUserViewer DefaultUserColor="Azure" UserColoringMode="Manual" UserColors="{Binding PostEngagementUserColors}" ImageBackground="Transparent"/>
         <k:KinectRegion Name="kinectRegion">
             <!---Botton imagen cuadro -->
 
-            <Canvas>
+            <Canvas Name="canvasKinect">
 
                 <k:KinectTileButton x:Name="borrar" Content="Borrar"  Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="188" Height="155" Panel.ZIndex="10" BorderBrush="Black" Foreground="Black" LabelBackground="Black" Click="UiButtonClick" Canvas.Left="10" Canvas.Top="8"/>
                 <k:KinectTileButton x:Name="sala1" Content="Sala 1"  Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="188" Height="149" Panel.ZIndex="10" BorderBrush="Black" Foreground="Black" LabelBackground="Black" Click="Sala1Click" Canvas.Left="10" Canvas.Top="163"/>
@@ -23,13 +22,13 @@
                 <k:KinectTileButton x:Name="Anterior" Content="Anterior"  Margin="0,0,0,0" Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="321" Height="139" Panel.ZIndex="10" BorderBrush="Black" Foreground="Black" LabelBackground="Black" Click="PaginaAnterior" Canvas.Left="1184" Canvas.Top="12"/>
                 <k:KinectTileButton x:Name="Siguiente" Content="Siguiente"  Margin="0,0,0,0" Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="321" Height="130" Panel.ZIndex="10" BorderBrush="Black" Foreground="Black" LabelBackground="Black" Click="PaginaSiguiente" Canvas.Left="1183" Canvas.Top="630"/>
                 <!---Sala1 -->
-                <k:KinectTileButton x:Name="imageButton2" Uid="1.0" Content="" Width="157" Height="114" Panel.ZIndex="10" VerticalAlignment="Top" HorizontalAlignment="Left" Canvas.Left="1190" Canvas.Top="157">
+                <k:KinectTileButton x:Name="imageButton2" Uid="1.0"  BorderBrush="#00000000" Foreground="#00000000" Content="" Width="157" Height="114" Panel.ZIndex="10" VerticalAlignment="Top" HorizontalAlignment="Left" Canvas.Left="1190" Canvas.Top="157">
                     <k:KinectTileButton.Background>
                         <ImageBrush ImageSource="/Images/1.png" Stretch="Uniform"/>
                     </k:KinectTileButton.Background>
                 </k:KinectTileButton>
 
-                <k:KinectTileButton x:Name="imageButton1" Uid="1.0" Content="" Width="157" Height="114" Panel.ZIndex="10"  BorderBrush="#00000000" Foreground="#00000000" VerticalAlignment="Top" HorizontalAlignment="Left" Canvas.Left="1347" Canvas.Top="157" >
+                <k:KinectTileButton x:Name="imageButton1" Uid="1.0" Content="" Width="157"  Height="114" Panel.ZIndex="10"  BorderBrush="#00000000" Foreground="#00000000" VerticalAlignment="Top" HorizontalAlignment="Left" Canvas.Left="1347" Canvas.Top="157" >
                     <k:KinectTileButton.Background>
                         <ImageBrush ImageSource="/Images/2.jpg" Stretch="Uniform"/>
                     </k:KinectTileButton.Background>
