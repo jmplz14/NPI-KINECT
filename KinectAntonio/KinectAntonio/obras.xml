@@ -1,155 +1,153 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <obras>
-  <obra id = "0">
-    <autor>Juan Lopez</autor>
-    <titulo></titulo>
-  </obra>
-  <obra id = "1">
+
+  <obra id = "imageButton1">
     <autor>Juani Amare</autor>
     <titulo>Buda</titulo>
   </obra>
-  <obra id = "2">
+  <obra id = "imageButton2">
     <autor>Antonio Heredia</autor>
     <titulo>Rompe almas</titulo>
   </obra>
-  <obra id = "3">
+  <obra id = "imageButton3">
     <autor>Juan Lopez</autor>
     <titulo>Cenefa</titulo>
   </obra>
-  <obra id = "4">
+  <obra id = "imageButton4">
     <autor>Santa Maria</autor>
     <titulo>Cenefa completa</titulo>
   </obra>
-  <obra id = "5">
+  <obra id = "imageButton5">
     <autor>Juan Lopez</autor>
     <titulo>El querer</titulo>
   </obra>
-  <obra id = "6">
+  <obra id = "imageButton6">
     <autor>Rebeca Linares</autor>
     <titulo>pesadilla</titulo>
   </obra>
-  <obra id = "7">
+  <obra id = "imageButton7">
     <autor>Juan Lopez</autor>
     <titulo>Tristeza pasajera</titulo>
   </obra>
-  <obra id = "8">
+  <obra id = "imageButton8">
     <autor>Juani Amare</autor>
     <titulo>Niño posando</titulo>
   </obra>
-  <obra id = "9">
+  <obra id = "imageButton9">
     <autor>Santa Maria</autor>
     <titulo>Testigo</titulo>
   </obra>
-  <obra id = "10">
+  <obra id = "imageButton10">
     <autor>Juani Amare</autor>
     <titulo>Poder</titulo>
   </obra>
-  <obra id = "11">
+  <obra id = "imageButton11">
     <autor>Jose Perez</autor>
     <titulo>Enfado</titulo>
   </obra>
-  <obra id = "12">
+  <obra id = "imageButton12">
     <autor>Mercesdes Lendinez</autor>
     <titulo>Doncella apuesta</titulo>
   </obra>
-  <obra id = "13">
+  <obra id = "imageButton13">
     <autor>Antonio Heredia</autor>
     <titulo>Ecce homo</titulo>
   </obra>
-  <obra id = "14">
+  <obra id = "imageButton14">
     <autor>Juani Amare</autor>
     <titulo>Dios todo poderoso</titulo>
   </obra>
-  <obra id = "15">
+  <obra id = "imageButton15">
     <autor>Antonio Heredia</autor>
     <titulo>Cura moderno</titulo>
   </obra> 
-  <obra id = "16">
+  <obra id = "imageButton16">
     <autor>Juani Amare</autor>
     <titulo>Tigre acorralado</titulo>
   </obra>
-  <obra id = "17">
+  <obra id = "imageButton17">
     <autor>Jose Perez</autor>
     <titulo>Robo</titulo>
   </obra>
-  <obra id = "18">
+  <obra id = "imageButton18">
     <autor>Santa Maria</autor>
     <titulo>Autoretrato Santa Maria</titulo>
   </obra>
-  <obra id = "19">
+  <obra id = "imageButton19">
     <autor>Antonio Heredia</autor>
     <titulo>Amor Infinito</titulo>
   </obra>
-  <obra id = "20">
+  <obra id = "imageButton20">
     <autor>Juan Lopez</autor>
     <titulo>Alimentar el futuro</titulo>
   </obra>
-  <obra id = "21">
+  <obra id = "imageButton21">
     <autor>Santa Maria</autor>
     <titulo>Garabato artistico</titulo>
   </obra>
-  <obra id = "22">
+  <obra id = "imageButton22">
     <autor>Mercesdes Lendinez</autor>
     <titulo>Futuro rey</titulo>
   </obra>
-  <obra id = "23">
+  <obra id = "imageButton23">
     <autor>Jose Perez</autor>
     <titulo>Niño pensando</titulo>
   </obra>
-  <obra id = "24">
+  <obra id = "imageButton24">
     <autor>Mercesdes Lendinez</autor>
     <titulo>Jardin Derretido</titulo>
   </obra>
-  <obra id = "25">
+  <obra id = "imageButton25">
     <autor>Jose Perez</autor>
     <titulo>Calle tarde</titulo>
   </obra>
-  <obra id = "26">
+  <obra id = "imageButton26">
     <autor>Mia Khalifa</autor>
     <titulo>Diosa todo poderosa</titulo>
   </obra>
-  <obra id = "27">
+  <obra id = "imageButton27">
     <autor>Mercesdes Lendinez</autor>
     <titulo>alabar a dios</titulo>
   </obra>
-  <obra id = "28">
+  <obra id = "imageButton28">
     <autor>Juani Amare</autor>
     <titulo>Don Juan</titulo>
   </obra>
-  <obra id = "29">
+  <obra id = "imageButton29">
     <autor>Antonio Heredia</autor>
     <titulo>Crucifijo</titulo>
   </obra>
-  <obra id = "30">
+  <obra id = "imageButton30">
     <autor>Jose Perez</autor>
     <titulo>Niño lector</titulo>
   </obra>
-   <obra id = "31">
+   <obra id = "imageButton31">
     <autor>Santa Maria</autor>
     <titulo>Niño prodijio</titulo>
   </obra>
-  <obra id = "32">
+  <obra id = "imageButton32">
     <autor>Jose Perez</autor>
     <titulo>Aqui pensativo</titulo>
   </obra>
-  <obra id = "33">
+  <obra id = "imageButton33">
     <autor>Mercesdes Lendinez</autor>
     <titulo>Perfil perdedor</titulo>
   </obra>
-  <obra id = "34">
+  <obra id = "imageButton34">
     <autor>Santa Maria</autor>
     <titulo>Vitamina c</titulo>
   </obra>
-  <obra id = "35">
+  <obra id = "imageButton35">
     <autor>Jose Perez</autor>
     <titulo>Madrona</titulo>
   </obra>
-  <obra id = "36">
+  <obra id = "imageButton36">
     <autor>Antonio Heridia</autor>
     <titulo>Autorretrato</titulo>
   </obra>
-
-  
-  
+  <obra id = "imageButton37">
+    <autor>Juan Lopez</autor>
+    <titulo></titulo>
+  </obra>
 
 </obras>

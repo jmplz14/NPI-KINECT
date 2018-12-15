@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Windows.Media.Media3D;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Xml;
 
 namespace KinectAntonio
 {
@@ -64,6 +65,40 @@ namespace KinectAntonio
 
         }
 
+        private void InformacionObra(String idObra)
+        {
+            XmlDocument xDoc = new XmlDocument();
+
+            //La ruta del documento XML permite rutas relativas 
+            //respecto del ejecutable!
+
+            xDoc.Load("../../obras.xml");
+
+            XmlNodeList obras = xDoc.GetElementsByTagName("obras");
+
+            XmlNodeList lista = ((XmlElement)obras[0]).GetElementsByTagName("obra");
+
+            foreach (XmlElement nodo in lista)
+
+            {
+
+                if(nodo.Attributes["id"].Value == idObra)
+                {
+           
+                    autor.Content = nodo.GetElementsByTagName("autor")[0].InnerText;
+                    titulo.Content = nodo.GetElementsByTagName("titulo")[0].InnerText;
+                    
+                    break;
+                }
+               
+
+                
+
+
+            }
+
+        }
+    
         private void CambiarSala(string sala, int pagina)
         {
             String salaBuscada = sala;
@@ -77,7 +112,7 @@ namespace KinectAntonio
                     {
                         target.Visibility = Visibility.Visible;
                     }
-                    else
+                    else if(target.Uid != "elegido")
                     {
                         target.Visibility = Visibility.Hidden;
                     }
@@ -303,6 +338,7 @@ namespace KinectAntonio
 
                 if (!stopDraw && selected.Uid == "elegido")
                 {
+                    InformacionObra(selected.Name);
                     Canvas.SetLeft(selected, newPoint.X-selected.Width/2);
                     Canvas.SetTop(selected, newPoint.Y-selected.Height/2);
                     profundidad = getprofundidad();
@@ -382,6 +418,7 @@ namespace KinectAntonio
             nuevo.Background = imagen;
             nuevo.Width = selected.Width;
             nuevo.Height = selected.Height;
+            nuevo.Name = selected.Name;
             nuevo.Uid = "elegido";
             return nuevo;
 
