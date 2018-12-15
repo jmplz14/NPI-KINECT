@@ -9,12 +9,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1520">
     <Grid>
-        <k:KinectSensorChooserUI Name="sensorChooserUi" HorizontalAlignment="Center" VerticalAlignment="Top"></k:KinectSensorChooserUI>
+        <k:KinectUserViewer DefaultUserColor="Azure" UserColoringMode="Manual" UserColors="{Binding PostEngagementUserColors}" ImageBackground="Transparent"/>
         <k:KinectRegion Name="kinectRegion">
             <!---Botton imagen cuadro -->
 
             <Canvas>
-
 
                 <k:KinectTileButton x:Name="borrar" Content="Borrar"  Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="188" Height="155" Panel.ZIndex="10" BorderBrush="Black" Foreground="Black" LabelBackground="Black" Click="UiButtonClick" Canvas.Left="10" Canvas.Top="8"/>
                 <k:KinectTileButton x:Name="sala1" Content="Sala 1"  Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="188" Height="149" Panel.ZIndex="10" BorderBrush="Black" Foreground="Black" LabelBackground="Black" Click="Sala1Click" Canvas.Left="10" Canvas.Top="163"/>
@@ -248,6 +247,8 @@
                         <ImageBrush ImageSource="/Images/37.jpg" Stretch="Uniform"/>
                     </k:KinectTileButton.Background>
                 </k:KinectTileButton>
+                <Label Name="etiqueta" Content="Label" FontSize="120"  Canvas.Left="198" Canvas.Top="75" Height="299" Width="982"/>
+                <Label Name="etiqueta2" Content="Label" FontSize="120"  Canvas.Left="198" Canvas.Top="389" Height="299" Width="982"/>
 
             </Canvas>
         </k:KinectRegion>

@@ -116,7 +116,7 @@ namespace KinectAntonio
 
             this.sensorChooser = new KinectSensorChooser();
             this.sensorChooser.KinectChanged += SensorChooserOnKinectChanged;
-            this.sensorChooserUi.KinectSensorChooser = this.sensorChooser;
+            //this.sensorChooserUi.KinectSensorChooser = this.sensorChooser;
             this.sensorChooser.Start();
 
         }
@@ -239,8 +239,8 @@ namespace KinectAntonio
         public Point3D oldDepth;
         public Point3D newDepth;
         bool stopDraw;
-        double primeraDistancia = 0;
-        double distancia = 0;
+        double primeraProfundidad = 0;
+        double profundidad = 0;
         private void InteractionStreamOnInteractionFrameReady(object sender, InteractionFrameReadyEventArgs e)
         {
             TrackClosestSkeleton();
@@ -275,24 +275,23 @@ namespace KinectAntonio
                 if (isHandOver(oldPoint, buttons))
                 {
                     stopDraw = false;
-                    primeraDistancia = getDistancia();
+                    if(profundidad == 0)
+                        primeraProfundidad = getprofundidad();
+                    etiqueta.Content = primeraProfundidad.ToString();
                 }
 
                 if (!stopDraw)
                 {
-
                     Canvas.SetLeft(selected, newPoint.X-selected.Width/2);
                     Canvas.SetTop(selected, newPoint.Y-selected.Height/2);
-                    distancia = getDistancia();
-                    selected.Width += (primeraDistancia - distancia)*1.5;
-                    selected.Height += (primeraDistancia - distancia)*1.5;
+                    profundidad = getprofundidad();
+                    etiqueta2.Content = profundidad.ToString();
+
+                    selected.Width -= (primeraProfundidad - profundidad)*1.5;
+                    selected.Height -= (primeraProfundidad - profundidad)*1.5;
                         
                 }
-                /* Como dibuja
-                DrawCanvas.Paint(oldPoint, newPoint, inkCanvas, color, thickness, tool, oldDepth, newDepth);
-                oldPoint = newPoint;
-                oldDepth = newDepth;
-                */
+
 
 
                 kinectRegion.Tag = "draw";
@@ -301,17 +300,14 @@ namespace KinectAntonio
             {
                 kinectRegion.Tag = "";
                 stopDraw = true;
-                primeraDistancia = 0;
-                distancia = 0;
+                primeraProfundidad = 0;
+                profundidad = 0;
             }
         }
 
-         public  double getDistancia()
+         public  double getprofundidad()
         {
-            double x1 = 0;
-            double y1 = 0;
-            double x2 = 0;
-            double y2 = 0;
+            double z = 0;
             foreach(var user in _userInfos)
             {
                 int userID = user.SkeletonTrackingId;
@@ -321,20 +317,17 @@ namespace KinectAntonio
                 }
                 foreach (var hand in user.HandPointers)
                 {
-                    if (hand.IsPrimaryForUser && hand.HandEventType == InteractionHandEventType.Grip)
+                    // && hand.HandEventType == InteractionHandEventType.Grip
+                    if (!hand.IsPrimaryForUser && hand.RawY < 800 && hand.RawX < 1520)
                     {
-                        x1 = hand.RawX;
-                        y1 = hand.RawY;
+                        z = hand.RawZ;
                     }
-                    else { 
-                        x2 = hand.RawX;
-                        y2 = hand.RawY;
-                    }
+                   
 
                 }
             }
             
-            return Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+            return z;
         }
 
         private void TrackClosestSkeleton()
