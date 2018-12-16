@@ -354,7 +354,6 @@ namespace KinectAntonio
 
                         if(selected.Uid != "elegido")
                         {
-                            stopDraw = true;
 
                             var nuevo = ClonarBoton(selected);
                             Canvas.SetLeft(nuevo, newPoint.X - selected.Width / 2);
@@ -375,8 +374,19 @@ namespace KinectAntonio
                     InformacionObra(selected.Name);
                     Canvas.SetLeft(selected, newPoint.X-selected.Width/2);
                     Canvas.SetTop(selected, newPoint.Y-selected.Height/2);
+                    int zindex = Canvas.GetZIndex(selected);
+                    if(newDepth.Z * 10 > 7)
+                    {
+                        zindex++;
+                    }else if (newDepth.Z*10 < 3)
+                    {
+                        zindex--;
+                    }
+                
+                    Canvas.SetZIndex(selected, zindex);
+                    etiqueta2.Content = zindex;
+
                     profundidad = getprofundidad();
-                    etiqueta2.Content = profundidad.ToString();
                     double widthNuevo = selected.Width - (primeraProfundidad - profundidad) * 1.5;
                     double heightNuevo = selected.Height - (primeraProfundidad - profundidad) * 1.5;
 
@@ -393,6 +403,7 @@ namespace KinectAntonio
                 kinectRegion.Tag = "";
                 if(selected != null)
                 {
+                    selected.IsEnabled = true;
                     double margenIzquierdo = Canvas.GetLeft(selected);
                     double margenSuperior = Canvas.GetTop(selected);
                     if (!EnviarPapelera(selected))
@@ -476,10 +487,7 @@ namespace KinectAntonio
                     TimeSpan stop = new TimeSpan(DateTime.Now.Ticks);
                     if ((stop - start).TotalMilliseconds > 200)
                         reconociendo = false;
-
-
                     }
-
             }
         }
         private InteractionHandPointer getManoPrincipal()
@@ -620,7 +628,7 @@ namespace KinectAntonio
         {
             var handX = punto.X;
             var handY = punto.Y;
-
+            Boolean encontrado = false;
 
             foreach (KinectTileButton target in buttonslist)
             {
@@ -631,11 +639,20 @@ namespace KinectAntonio
                     handY > targetTopLeft.Y &&
                     handY < targetTopLeft.Y + target.Height && target.IsVisible)
                 {
-                    selected = target;
-                    return true;
+                    if (!encontrado)
+                    {
+                        encontrado = true;
+                        selected = target;
+                    }
+                    if (Canvas.GetZIndex(target) > Canvas.GetZIndex(selected))
+                    {
+                        selected = target;
+                    }
                 }
             }
-            return false;
+            if (encontrado)
+                selected.IsEnabled = false;
+            return encontrado;
         }
 
         private void UiButtonClick(object sender, RoutedEventArgs e)
