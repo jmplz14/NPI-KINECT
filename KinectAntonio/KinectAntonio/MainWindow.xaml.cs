@@ -309,6 +309,13 @@ namespace KinectAntonio
         bool stopDraw;
         double primeraProfundidad = 0;
         double profundidad = 0;
+        InteractionHandPointer puntoInicial;
+        TimeSpan start;
+
+        // codigo a medir
+
+        static double velocidadMinima = 0;
+        Boolean reconociendo = false;
         private void InteractionStreamOnInteractionFrameReady(object sender, InteractionFrameReadyEventArgs e)
         {
             TrackClosestSkeleton();
@@ -416,7 +423,77 @@ namespace KinectAntonio
                 stopDraw = true;
                 primeraProfundidad = 0;
                 profundidad = 0;
+
+                //Detector de gestos mano abierta
+                if (!reconociendo)
+                {
+                    puntoInicial = getManoPrincipal();
+                    if(puntoInicial != null)
+                    {
+                        start = new TimeSpan(DateTime.Now.Ticks);
+                        reconociendo = true;
+                    }
+                }
+                else
+                {
+                    InteractionHandPointer puntoActual = getManoPrincipal();
+                    if(puntoActual != null)
+                    {
+                        if (Math.Abs(puntoActual.Y - puntoInicial.Y) > 0.1)
+                        {
+                            etiqueta.Content = "SI te pasastes wey";
+                            reconociendo = false;
+                        }
+                        else
+                        {
+                            etiqueta.Content = "NO te pasastes wey";
+                            if (Math.Abs(puntoActual.X - puntoInicial.X) > 0.5)
+                            {
+                                TimeSpan stop_local = new TimeSpan(DateTime.Now.Ticks);
+                                if ((stop_local - start).TotalMilliseconds < 200)
+                                {
+                                    CambiarPagina(1);
+                                    reconociendo = false;
+                                }
+                                else
+                                {
+                                    reconociendo = false;
+                                }
+                            }
+                            
+
+                        }
+                    }
+                    TimeSpan stop = new TimeSpan(DateTime.Now.Ticks);
+                    if ((stop - start).TotalMilliseconds > 200)
+                        reconociendo = false;
+
+
+                    }
+
             }
+        }
+        private InteractionHandPointer getManoPrincipal()
+        {
+            foreach (var user in _userInfos)
+            {
+                int userID = user.SkeletonTrackingId;
+                if (userID == 0)
+                {
+                    continue;
+                }
+                foreach (var hand in user.HandPointers)
+                {
+                    // && hand.HandEventType == InteractionHandEventType.Grip
+                    if (hand.IsPrimaryForUser)
+                    {
+                        return hand;
+                    }
+
+
+                }
+            }
+            return null;
         }
 
          public  double getprofundidad()
