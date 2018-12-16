@@ -82,6 +82,7 @@ namespace KinectAntonio
 
                     Canvas.SetLeft(target, x);
                     Canvas.SetTop(target, y);
+                    Canvas.SetZIndex(target, 0);
 
                     x += tamanoImagenAncho;
                     if((x + 150 ) > margenDerechoMax)
@@ -391,22 +392,24 @@ namespace KinectAntonio
                 {
                     double margenIzquierdo = Canvas.GetLeft(selected);
                     double margenSuperior = Canvas.GetTop(selected);
-
-                    if (margenSuperior < 0)
+                    if (!EnviarPapelera(selected))
                     {
-                        Canvas.SetTop(selected, 0);
-                    }
-                    if (margenSuperior > 800 - selected.Height)
-                    {
-                        Canvas.SetTop(selected, 800-selected.Height);
-                    }
-                    if (margenIzquierdo < margenIzquierdoMin)
-                    {
-                        Canvas.SetLeft(selected, margenIzquierdoMin);
-                    }
-                    if (margenIzquierdo > margenDerechoMax-selected.Width)
-                    {
-                        Canvas.SetLeft(selected, margenDerechoMax-selected.Width);
+                        if (margenSuperior < 0)
+                        {
+                            Canvas.SetTop(selected, 0);
+                        }
+                        if (margenSuperior > 800 - selected.Height)
+                        {
+                            Canvas.SetTop(selected, 800 - selected.Height);
+                        }
+                        if (margenIzquierdo < margenIzquierdoMin)
+                        {
+                            Canvas.SetLeft(selected, margenIzquierdoMin);
+                        }
+                        if (margenIzquierdo > margenDerechoMax - selected.Width)
+                        {
+                            Canvas.SetLeft(selected, margenDerechoMax - selected.Width);
+                        }
                     }
                 }
                 selected = null;
@@ -611,6 +614,25 @@ namespace KinectAntonio
             {
                 buttons.Remove(target);
             }
+        }
+        private bool EnviarPapelera(KinectTileButton target)
+        {
+            bool borrado = false;
+            double x = (Canvas.GetLeft(target) + target.Width) / 2;
+            double y = (Canvas.GetTop(target) + target.Height) / 2;
+           
+            if (x > Canvas.GetLeft(borrar) &&
+                    x < Canvas.GetLeft(borrar) + borrar.Width &&
+                    y > Canvas.GetTop(borrar) &&
+                    y < Canvas.GetTop(borrar) + borrar.Height)    
+            {
+                
+                this.canvasKinect.Children.Remove(target);
+                buttons.Remove(target);
+                borrado = true;
+            }
+
+            return borrado;
         }
     }
 
