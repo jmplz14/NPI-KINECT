@@ -320,6 +320,8 @@ namespace KinectAntonio
                 iaf.CopyInteractionDataTo(_userInfos);
             }
 
+            if (distanciaManoCabeza(true) > 0 && distanciaManoCabeza(true) < 0.2)
+                vaciarCanvas();
             // for activating and disabling draw
             //pinta o no pinta
             //es decir cuando esta abierta la mana (!isDrawActive)
@@ -452,6 +454,48 @@ namespace KinectAntonio
 
         }
 
+        private double distanciaManoCabeza(Boolean derecha)
+        {
+            Skeleton esqueleto = new Skeleton();
+            foreach (var user in _userInfos)
+            {
+                int userID = user.SkeletonTrackingId;
+                if (userID == 0)
+                {
+                    continue;
+                }
+
+                foreach (var skel in _skeletons)
+                {
+                    if (skel.TrackingId == userID)
+                    {
+                        esqueleto = skel;
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                Joint cabeza = esqueleto.Joints[JointType.Head];
+                Joint mano;
+                if (derecha)
+                    mano = esqueleto.Joints[JointType.HandRight];
+                else
+                    mano = esqueleto.Joints[JointType.HandLeft];
+
+                return distanciaPuntosSkeleton(cabeza.Position, mano.Position);
+
+            }
+
+
+            return 0;
+        }
+        private double distanciaPuntosSkeleton(SkeletonPoint punto1, SkeletonPoint punto2)
+        {
+            return Math.Sqrt(Math.Pow((punto2.X-punto1.X),2)+ Math.Pow((punto2.Y - punto1.Y), 2)+ Math.Pow((punto2.Z - punto1.Z), 2));
+        }
         private void TrackClosestSkeleton()
         {
             if (this._sensor != null && this._sensor.SkeletonStream != null)
@@ -544,10 +588,14 @@ namespace KinectAntonio
 
         private void LimpiarCanvas(object sender, RoutedEventArgs e)
         {
+            vaciarCanvas();
+        }
+        private void vaciarCanvas()
+        {
             List<KinectTileButton> borrados = new List<KinectTileButton>();
             foreach (KinectTileButton target in buttons)
             {
-             
+
 
                 if (target.Uid == "elegido")
                 {
