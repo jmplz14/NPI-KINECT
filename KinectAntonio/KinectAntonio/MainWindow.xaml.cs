@@ -119,11 +119,7 @@ namespace KinectAntonio
                     
                     break;
                 }
-               
-
-                
-
-
+       
             }
 
         }
@@ -447,7 +443,7 @@ namespace KinectAntonio
                         else
                         {
                             etiqueta.Content = "NO te pasastes wey";
-                            if (Math.Abs(puntoActual.X - puntoInicial.X) > 0.5)
+                            if (puntoActual.X - puntoInicial.X > 0.4)
                             {
                                 TimeSpan stop_local = new TimeSpan(DateTime.Now.Ticks);
                                 if ((stop_local - start).TotalMilliseconds < 200)
@@ -459,7 +455,20 @@ namespace KinectAntonio
                                 {
                                     reconociendo = false;
                                 }
+                            }else if(puntoActual.X - puntoInicial.X < -0.4)
+                            {
+                                TimeSpan stop_local = new TimeSpan(DateTime.Now.Ticks);
+                                if ((stop_local - start).TotalMilliseconds < 250)
+                                {
+                                    CambiarPagina(-1);
+                                    reconociendo = false;
+                                }
+                                else
+                                {
+                                    reconociendo = false;
+                                }
                             }
+                            
                             
 
                         }
@@ -530,6 +539,8 @@ namespace KinectAntonio
             nuevo.Height = selected.Height;
             nuevo.Name = selected.Name;
             nuevo.Uid = "elegido";
+
+            nuevo.Click += (s, e) => { SalaObra(s, e); };
             return nuevo;
 
         }
@@ -710,6 +721,57 @@ namespace KinectAntonio
             }
 
             return borrado;
+        }
+
+        private void SalaObra(object sender, RoutedEventArgs e)
+        {
+            KinectTileButton button = (KinectTileButton)sender;
+            string buttonName = button.Name, buttonId = "";
+            XmlDocument xDoc = new XmlDocument();
+
+            //La ruta del documento XML permite rutas relativas 
+            //respecto del ejecutable!
+
+
+            foreach (KinectTileButton target in buttons)
+            {
+
+                if (target.Name == buttonName && target.Uid != "elegido")
+                {
+
+                    buttonId = target.Uid;
+                    break;
+                }
+
+            }
+
+            string sala = StringInfo.GetNextTextElement(buttonId, 0);
+            string pagina = StringInfo.GetNextTextElement(buttonId, 2);
+            CambiarSala(sala, Int32.Parse(pagina));
+        }
+
+        private void borrarCopias(object sender, RoutedEventArgs e)
+        {
+            List<KinectTileButton> borrados = new List<KinectTileButton>();
+            KinectTileButton button = (KinectTileButton)sender;
+            foreach (KinectTileButton target in buttons)
+            {
+
+
+                if (target.Uid == "elegido" && button.Name == target.Name)
+                {
+                    borrados.Add(target);
+                    this.canvasKinect.Children.Remove(target);
+
+
+
+                }
+            }
+
+            foreach (KinectTileButton target in borrados)
+            {
+                buttons.Remove(target);
+            }
         }
     }
 
