@@ -310,7 +310,6 @@ namespace KinectAntonio
 
         // codigo a medir
 
-        static double velocidadMinima = 0;
         Boolean reconociendo = false;
         private void InteractionStreamOnInteractionFrameReady(object sender, InteractionFrameReadyEventArgs e)
         {
@@ -350,7 +349,6 @@ namespace KinectAntonio
                     {
                         stopDraw = false;
                         primeraProfundidad = getprofundidad();
-                        etiqueta.Content = primeraProfundidad.ToString();
 
                         if(selected.Uid != "elegido")
                         {
@@ -376,7 +374,6 @@ namespace KinectAntonio
                     Canvas.SetLeft(selected, newPoint.X-selected.Width/2);
                     Canvas.SetTop(selected, newPoint.Y-selected.Height/2);
                     profundidad = getprofundidad();
-                    etiqueta2.Content = profundidad.ToString();
                     double widthNuevo = selected.Width - (primeraProfundidad - profundidad) * 1.5;
                     double heightNuevo = selected.Height - (primeraProfundidad - profundidad) * 1.5;
 
@@ -437,12 +434,10 @@ namespace KinectAntonio
                     {
                         if (Math.Abs(puntoActual.Y - puntoInicial.Y) > 0.1)
                         {
-                            etiqueta.Content = "SI te pasastes wey";
                             reconociendo = false;
                         }
                         else
                         {
-                            etiqueta.Content = "NO te pasastes wey";
                             if (puntoActual.X - puntoInicial.X > 0.4)
                             {
                                 TimeSpan stop_local = new TimeSpan(DateTime.Now.Ticks);

@@ -246,8 +246,6 @@
                         <ImageBrush ImageSource="/Images/37.jpg" Stretch="Uniform"/>
                     </k:KinectTileButton.Background>
                 </k:KinectTileButton>
-                <Label Name="etiqueta" Content="Label" FontSize="120"  Canvas.Left="198" Canvas.Top="75" Height="299" Width="982"/>
-                <Label Name="etiqueta2" Content="Label" FontSize="120"  Canvas.Left="198" Canvas.Top="389" Height="299" Width="982"/>
                 <Label Name="titulo" Content="" FontSize="25"  Canvas.Left="15" Canvas.Top="667" Height="49" Width="184"/>
                 <Label Name="autor" Content="" FontSize="25"  Canvas.Left="15" Canvas.Top="716" Height="49" Width="202"/>
 
