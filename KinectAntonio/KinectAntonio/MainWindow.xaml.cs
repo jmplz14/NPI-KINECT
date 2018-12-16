@@ -41,6 +41,8 @@ namespace KinectAntonio
         string salaActual = "1.0";
         int paginaActualSala = 0;
         int[] maxPaginas = { 2 , 1 , 0};
+        int margenIzquierdoMin = 190;
+        int margenDerechoMax = 1190;
 
         public MainWindow()
         {
@@ -63,6 +65,32 @@ namespace KinectAntonio
 
 
 
+        }
+
+        private void OrganizarCanvas()
+        {
+            int tamanoImagenAncho = (margenDerechoMax - margenIzquierdoMin) / 6;
+            int tamanoImagenAlto = 150;
+            int x = margenIzquierdoMin, y = 0;
+            
+            foreach (KinectTileButton target in buttons)
+            {
+                if (target.Uid == "elegido")
+                {
+                    target.Width = tamanoImagenAncho;
+                    target.Height = tamanoImagenAlto;
+
+                    Canvas.SetLeft(target, x);
+                    Canvas.SetTop(target, y);
+
+                    x += tamanoImagenAncho;
+                    if((x + 150 ) > margenDerechoMax)
+                    {
+                        x = margenIzquierdoMin;
+                        y += tamanoImagenAlto;
+                    }
+                }
+            }
         }
 
         private void InformacionObra(String idObra)
@@ -346,7 +374,7 @@ namespace KinectAntonio
                     double widthNuevo = selected.Width - (primeraProfundidad - profundidad) * 1.5;
                     double heightNuevo = selected.Height - (primeraProfundidad - profundidad) * 1.5;
 
-                    if (widthNuevo > 0 && heightNuevo > 0)
+                    if (widthNuevo > 75 && heightNuevo > 75 && widthNuevo < 500 && heightNuevo < 500)
                     {
                         selected.Width = widthNuevo;
                         selected.Height = heightNuevo;
@@ -370,13 +398,13 @@ namespace KinectAntonio
                     {
                         Canvas.SetTop(selected, 800-selected.Height);
                     }
-                    if (margenIzquierdo < 198)
+                    if (margenIzquierdo < margenIzquierdoMin)
                     {
-                        Canvas.SetLeft(selected, 198);
+                        Canvas.SetLeft(selected, margenIzquierdoMin);
                     }
-                    if (margenIzquierdo > 1190-selected.Width)
+                    if (margenIzquierdo > margenDerechoMax-selected.Width)
                     {
-                        Canvas.SetLeft(selected, 1190-selected.Width);
+                        Canvas.SetLeft(selected, margenDerechoMax-selected.Width);
                     }
                 }
                 selected = null;
@@ -501,7 +529,7 @@ namespace KinectAntonio
 
         private void ReordenarCanvas(object sender, RoutedEventArgs e)
         {
-
+            OrganizarCanvas();
         }
 
         private void PaginaAnterior(object sender, RoutedEventArgs e)
